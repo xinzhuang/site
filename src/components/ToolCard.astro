@@ -1,0 +1,78 @@
+---
+interface Props {
+  name: string;
+  id: string;
+  description: string;
+  url: string;
+  github: string;
+  status: string;
+  features: string[];
+}
+
+const { name, id, description, url, github, status, features } = Astro.props;
+
+const statusLabel: Record<string, string> = {
+  'live': '🟢 Live',
+  'beta': '🟡 Beta',
+  'coming-soon': '🔜 Coming Soon',
+};
+---
+
+<a href={`/tools/${id}`} class="tool-card">
+  <div class="tool-header">
+    <h3>{name}</h3>
+    <span class="status">{statusLabel[status] || status}</span>
+  </div>
+  <p class="desc">{description}</p>
+  <ul class="features">
+    {features.map((f) => <li>{f}</li>)}
+  </ul>
+</a>
+
+<style>
+  .tool-card {
+    display: block;
+    padding: 24px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .tool-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    color: var(--color-text);
+  }
+  .tool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .tool-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .status {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+  .desc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+  }
+  .features li {
+    background: var(--color-bg);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+</style>

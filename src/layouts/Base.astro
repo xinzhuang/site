@@ -1,0 +1,77 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Developer tools for AI-powered workflows' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | AgentTools</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <nav class="container">
+      <div class="nav-inner">
+        <a href="/" class="logo">⚡ AgentTools</a>
+        <div class="nav-links">
+          <a href="/">Tools</a>
+          <a href="https://github.com/xinzhuang" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <slot />
+    </main>
+    <footer class="container">
+      <p>© 2026 xinzhuang · Built with Astro</p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+
+  nav {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+  .logo:hover { color: var(--color-text); }
+  .nav-links {
+    display: flex;
+    gap: 24px;
+  }
+  .nav-links a {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+  }
+  .nav-links a:hover { color: var(--color-text); }
+
+  main {
+    min-height: 80vh;
+  }
+
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+</style>
