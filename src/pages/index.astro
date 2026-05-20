@@ -7,24 +7,41 @@ const tools: Tool[] = [
   {
     id: 'repolens',
     name: 'RepoLens',
-    description: 'AI-powered GitHub repository analyzer — instant insights for any repo.',
+    description: 'Local git repository search engine — find your projects instantly with FTS5 full-text indexing.',
     url: 'https://repolens.agenttools.qzz.io',
     github: 'https://github.com/xinzhuang/repolens',
     status: 'live',
-    features: ['Repo Analysis', 'AI Summary', 'Tech Stack Detection', 'Code Metrics'],
+    features: ['FTS5 Search', 'Agent-native', 'Rich Fingerprints', 'Zero Config'],
   },
-  // 未来工具在这里添加
+  {
+    id: 'openclaw-model-manager',
+    name: 'OpenClaw Model Manager',
+    description: 'Visual model configuration manager for OpenClaw AI agents — manage providers, models & agent bindings.',
+    url: 'https://github.com/xinzhuang/openclaw-model-manager',
+    github: 'https://github.com/xinzhuang/openclaw-model-manager',
+    status: 'beta',
+    features: ['Provider Management', 'Model Config', 'Agent Binding', 'Bilingual UI'],
+  },
 ];
 ---
 
 <Base title="Home" description="Developer tools for AI-powered workflows — by xinzhuang">
   <section class="hero container">
-    <h1>Developer Tools<br/><span class="accent">for AI Workflows</span></h1>
-    <p class="subtitle">A collection of tools built by <a href="https://github.com/xinzhuang" target="_blank">xinzhuang</a> to make developers more productive.</p>
+    <div class="hero-badge">Open Source Tools</div>
+    <h1>
+      Developer Tools<br/>
+      <span class="accent">for AI Workflows</span>
+    </h1>
+    <p class="subtitle">
+      A collection of tools built by <a href="https://github.com/xinzhuang" target="_blank" class="author-link">xinzhuang</a> to make developers more productive with AI.
+    </p>
   </section>
 
   <section class="tools container">
-    <h2>Tools</h2>
+    <div class="section-header">
+      <h2>Tools</h2>
+      <span class="count">{tools.length} tools</span>
+    </div>
     <div class="grid">
       {tools.map((tool) => (
         <ToolCard {...tool} />
@@ -35,39 +52,81 @@ const tools: Tool[] = [
 
 <style>
   .hero {
-    padding: 80px 0 60px;
+    padding: 100px 0 80px;
     text-align: center;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: var(--color-accent-glow);
+    padding: 6px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
   }
   h1 {
-    font-size: 3rem;
+    font-size: 3.2rem;
     font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
   }
   .accent {
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    background: linear-gradient(135deg, var(--color-accent), var(--color-purple));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   .subtitle {
-    margin-top: 16px;
+    margin-top: 20px;
     font-size: 1.15rem;
     color: var(--color-text-muted);
-    max-width: 500px;
+    max-width: 520px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.6;
+  }
+  .author-link {
+    font-weight: 600;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    transition: border-color var(--transition);
+  }
+  .author-link:hover {
+    color: var(--color-text);
+    border-color: var(--color-accent);
   }
 
   .tools {
-    padding: 40px 0 80px;
+    padding: 20px 0 100px;
   }
-  .tools h2 {
-    font-size: 1.5rem;
-    margin-bottom: 24px;
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+  .section-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .count {
+    font-size: 0.85rem;
+    color: var(--color-text-subtle);
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 20px;
+  }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 2.2rem; }
+    .hero { padding: 60px 0 50px; }
+    .grid { grid-template-columns: 1fr; }
   }
 </style>

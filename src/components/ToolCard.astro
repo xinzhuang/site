@@ -11,68 +11,109 @@ interface Props {
 
 const { name, id, description, url, github, status, features } = Astro.props;
 
-const statusLabel: Record<string, string> = {
-  'live': '🟢 Live',
-  'beta': '🟡 Beta',
-  'coming-soon': '🔜 Coming Soon',
+const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
+  'live': { label: 'Live', color: 'var(--color-emerald)', bg: 'rgba(16, 185, 129, 0.1)' },
+  'beta': { label: 'Beta', color: 'var(--color-amber)', bg: 'rgba(245, 158, 11, 0.1)' },
+  'coming-soon': { label: 'Soon', color: 'var(--color-text-muted)', bg: 'rgba(136, 136, 136, 0.1)' },
 };
+const s = statusConfig[status] || statusConfig['coming-soon'];
 ---
 
 <a href={`/tools/${id}`} class="tool-card">
   <div class="tool-header">
     <h3>{name}</h3>
-    <span class="status">{statusLabel[status] || status}</span>
+    <span class="status" style={`color: ${s.color}; background: ${s.bg}`}>{s.label}</span>
   </div>
   <p class="desc">{description}</p>
-  <ul class="features">
-    {features.map((f) => <li>{f}</li>)}
-  </ul>
+  <div class="features">
+    {features.map((f) => <span class="tag">{f}</span>)}
+  </div>
+  <div class="card-footer">
+    <span class="link-hint">View details →</span>
+  </div>
 </a>
 
 <style>
   .tool-card {
-    display: block;
-    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
     border: 1px solid var(--color-border);
-    border-radius: 12px;
+    border-radius: var(--radius);
     background: var(--color-surface);
-    transition: border-color 0.2s, transform 0.2s;
+    transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .tool-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top left, var(--color-accent-glow), transparent 60%);
+    opacity: 0;
+    transition: opacity var(--transition);
   }
   .tool-card:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
+    border-color: var(--color-border-hover);
+    transform: translateY(-3px);
     color: var(--color-text);
+  }
+  .tool-card:hover::before {
+    opacity: 1;
   }
   .tool-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    position: relative;
   }
   .tool-header h3 {
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
   .status {
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
   }
   .desc {
     color: var(--color-text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 12px;
+    font-size: 0.92rem;
+    margin-bottom: 16px;
+    position: relative;
+    line-height: 1.5;
   }
   .features {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    list-style: none;
+    gap: 6px;
+    position: relative;
   }
-  .features li {
+  .tag {
     background: var(--color-bg);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.8rem;
+    border: 1px solid var(--color-border);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.75rem;
     color: var(--color-text-muted);
+    font-weight: 500;
+  }
+  .card-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    position: relative;
+  }
+  .link-hint {
+    font-size: 0.85rem;
+    color: var(--color-accent);
+    font-weight: 500;
+    transition: color var(--transition);
+  }
+  .tool-card:hover .link-hint {
+    color: var(--color-accent-hover);
   }
 </style>

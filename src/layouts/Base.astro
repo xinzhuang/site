@@ -19,10 +19,12 @@ const { title, description = 'Developer tools for AI-powered workflows' } = Astr
   <body>
     <nav class="container">
       <div class="nav-inner">
-        <a href="/" class="logo">⚡ AgentTools</a>
+        <a href="/" class="logo">
+          <span class="logo-icon">⚡</span> AgentTools
+        </a>
         <div class="nav-links">
           <a href="/">Tools</a>
-          <a href="https://github.com/xinzhuang" target="_blank">GitHub</a>
+          <a href="https://github.com/xinzhuang" target="_blank">GitHub ↗</a>
         </div>
       </div>
     </nav>
@@ -30,7 +32,12 @@ const { title, description = 'Developer tools for AI-powered workflows' } = Astr
       <slot />
     </main>
     <footer class="container">
-      <p>© 2026 xinzhuang · Built with Astro</p>
+      <div class="footer-inner">
+        <p>© 2026 xinzhuang · Built with Astro</p>
+        <div class="footer-links">
+          <a href="https://github.com/xinzhuang" target="_blank">GitHub</a>
+        </div>
+      </div>
     </footer>
   </body>
 </html>
@@ -41,6 +48,11 @@ const { title, description = 'Developer tools for AI-powered workflows' } = Astr
   nav {
     padding: 20px 0;
     border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5, 5, 5, 0.8);
   }
   .nav-inner {
     display: flex;
@@ -48,18 +60,25 @@ const { title, description = 'Developer tools for AI-powered workflows' } = Astr
     align-items: center;
   }
   .logo {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
   .logo:hover { color: var(--color-text); }
+  .logo-icon {
+    font-size: 1.1rem;
+  }
   .nav-links {
     display: flex;
-    gap: 24px;
+    gap: 28px;
   }
   .nav-links a {
     color: var(--color-text-muted);
     font-size: 0.9rem;
+    font-weight: 500;
   }
   .nav-links a:hover { color: var(--color-text); }
 
@@ -70,8 +89,31 @@ const { title, description = 'Developer tools for AI-powered workflows' } = Astr
   footer {
     padding: 40px 0;
     border-top: 1px solid var(--color-border);
-    color: var(--color-text-muted);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-inner p {
+    color: var(--color-text-subtle);
     font-size: 0.85rem;
-    text-align: center;
+  }
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+  .footer-links a {
+    color: var(--color-text-subtle);
+    font-size: 0.85rem;
+  }
+  .footer-links a:hover { color: var(--color-text-muted); }
+
+  @media (max-width: 640px) {
+    .footer-inner {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
   }
 </style>

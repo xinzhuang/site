@@ -2,36 +2,56 @@
 import Base from '../../layouts/Base.astro';
 ---
 
-<Base title="RepoLens" description="AI-powered GitHub repository analyzer">
+<Base title="RepoLens" description="Local git repository search engine — find your projects instantly">
   <section class="product container">
     <a href="/" class="back">← All Tools</a>
-    
+
     <div class="hero">
-      <span class="badge">🟢 Live</span>
+      <span class="badge" style="color: var(--color-emerald); background: rgba(16,185,129,0.1);">Live</span>
       <h1>RepoLens</h1>
-      <p class="tagline">AI-powered GitHub repository analyzer — instant insights for any repo.</p>
+      <p class="tagline">Local git repository search engine — find your projects instantly with FTS5 full-text indexing.</p>
       <div class="actions">
-        <a href="https://github.com/xinzhuang/repolens" target="_blank" class="btn btn-primary">GitHub</a>
-        <a href="#" class="btn btn-secondary">Try it</a>
+        <a href="https://github.com/xinzhuang/repolens" target="_blank" class="btn btn-primary">GitHub ↗</a>
+        <a href="#quickstart" class="btn btn-secondary">Get Started</a>
       </div>
     </div>
 
     <div class="features-grid">
       <div class="feature">
-        <h3>🔍 Repo Analysis</h3>
-        <p>Deep analysis of repository structure, patterns, and architecture decisions.</p>
+        <div class="feature-icon">🔍</div>
+        <h3>FTS5 Full-Text Search</h3>
+        <p>SQLite FTS5 powered search across repo names, README content, frameworks, and paths. Instant results.</p>
       </div>
       <div class="feature">
-        <h3>🤖 AI Summary</h3>
-        <p>Instant AI-generated summaries that help you understand any repo in seconds.</p>
+        <div class="feature-icon">🤖</div>
+        <h3>Agent-Native</h3>
+        <p>JSON output on every command. Designed for seamless AI assistant integration with structured data.</p>
       </div>
       <div class="feature">
-        <h3>🛠 Tech Stack Detection</h3>
-        <p>Automatically identifies languages, frameworks, and dependencies.</p>
+        <div class="feature-icon">📊</div>
+        <h3>Rich Fingerprints</h3>
+        <p>Auto-detects languages, frameworks, git branch, last commit, and README summaries for every repo.</p>
       </div>
       <div class="feature">
-        <h3>📊 Code Metrics</h3>
-        <p>Code quality, complexity, and contributor statistics at a glance.</p>
+        <div class="feature-icon">⚡</div>
+        <h3>Blazing Fast</h3>
+        <p>Pure Rust single binary. Incremental scanning. Zero runtime dependencies. Just point and go.</p>
+      </div>
+    </div>
+
+    <div class="quickstart" id="quickstart">
+      <h2>Quick Start</h2>
+      <div class="code-block">
+        <code>
+          <span class="comment"># Install from source</span><br/>
+          <span class="cmd">cargo install</span> --git https://github.com/xinzhuang/repolens<br/><br/>
+          <span class="comment"># Configure scan paths</span><br/>
+          <span class="cmd">repolens config</span> --add-path ~/projects<br/><br/>
+          <span class="comment"># Scan and index</span><br/>
+          <span class="cmd">repolens scan</span><br/><br/>
+          <span class="comment"># Search</span><br/>
+          <span class="cmd">repolens find</span> "your query"
+        </code>
       </div>
     </div>
   </section>
@@ -44,40 +64,48 @@ import Base from '../../layouts/Base.astro';
     font-size: 0.9rem;
     display: inline-block;
     margin-bottom: 32px;
+    font-weight: 500;
   }
+  .back:hover { color: var(--color-text); }
+
   .hero {
     text-align: center;
-    padding: 40px 0 60px;
+    padding: 40px 0 64px;
   }
   .badge {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
     display: inline-block;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    padding: 4px 14px;
+    border-radius: 100px;
   }
   h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 800;
+    letter-spacing: -0.02em;
   }
   .tagline {
     font-size: 1.15rem;
     color: var(--color-text-muted);
-    margin-top: 12px;
-    max-width: 480px;
+    margin-top: 16px;
+    max-width: 520px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.6;
   }
   .actions {
-    margin-top: 24px;
+    margin-top: 28px;
     display: flex;
     justify-content: center;
     gap: 12px;
   }
   .btn {
     padding: 10px 24px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.2s;
+    transition: all var(--transition);
   }
   .btn-primary {
     background: var(--color-accent);
@@ -93,20 +121,57 @@ import Base from '../../layouts/Base.astro';
   .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
+    gap: 16px;
   }
   .feature {
-    padding: 24px;
+    padding: 28px;
     border: 1px solid var(--color-border);
-    border-radius: 12px;
+    border-radius: var(--radius);
     background: var(--color-surface);
+    transition: border-color var(--transition);
+  }
+  .feature:hover {
+    border-color: var(--color-border-hover);
+  }
+  .feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
   }
   .feature h3 {
     font-size: 1.05rem;
+    font-weight: 700;
     margin-bottom: 8px;
   }
   .feature p {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .quickstart {
+    margin-top: 64px;
+  }
+  .quickstart h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .code-block {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 28px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+  .cmd {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  .comment {
+    color: var(--color-text-subtle);
   }
 </style>
